@@ -266,6 +266,70 @@ footer{
   color:#b83b5e;
 }
 
+  /* 📱 MOBILE RESPONSIVE FIX */
+@media (max-width: 768px){
+
+  /* Fix section padding */
+  section{
+    padding: 50px 14px;
+  }
+
+  /* Fix headings */
+  h2{
+    font-size: 26px;
+    line-height: 1.3;
+  }
+
+  /* 🧱 FORCE SINGLE COLUMN GRID */
+  .memories,
+  .video-grid,
+  .video-grid1{
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+
+  /* 📦 MEMORY CARD FIX */
+  .memory{
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .memory img{
+    height: auto;
+    max-height: 260px;
+    object-fit: cover;
+  }
+
+  /* 🎥 VIDEO FIX */
+  .memory-video,
+  .love-video{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 16; /* mobile friendly */
+    border-radius: 16px;
+  }
+
+  /* 🎥 VIDEO CONTAINER */
+  .video-memory{
+    padding: 10px;
+  }
+
+  .video-caption{
+    font-size: 14px;
+    padding: 4px 6px;
+  }
+
+  /* 🩷 WANNA RECREATE SECTION */
+  .recreate-section{
+    padding: 60px 14px;
+  }
+
+  /* Prevent horizontal scroll */
+  body{
+    overflow-x: hidden;
+  }
+}
+
 
 </style>
 </head>
@@ -374,16 +438,16 @@ footer{
     <p style=>Moments I want to relive with you 💞</p>
   </div> -->
   <div class="memory video-memory">
-  <video class="memory-video love-video" controls>
-    <source src="Videos/Memory4.mp4">
+  <video class="memory-video love-video" controls playsinline preload="metadata">
+    <source src="Videos/Memory4.mp4" type="video/mp4">
   </video>
   <p class="video-caption">Moments I want to relive with you 💞 Baby tumhare liye 1st Video banayi thi maine ye 😌✨</p>
 </div>
 
 
   <div class="memory" class="video-grid1" >
-    <video class="love-video" controls>
-      <source src="Videos/Memor5.mp4">
+    <video class="love-video" controls playsinline preload="metadata">
+      <source src="Videos/Memor5.mp4" type="video/mp4">
     </video>
     <p>Every second with you is precious ❤️ Ye thi 2nd Video meri Jahan(Duniya) ke liye🥺🦋</p>
   </div>
@@ -396,12 +460,12 @@ footer{
 <h2>WANNA RECREATE WITH YOU 💞</h2>
 <p>🫶🏻❤️</p>
 <div class="video-grid">
-  <video class="love-video" controls>
-    <source src="Videos/IMG_8707.mp4">
+  <video class="love-video" controls playsinline preload="metadata">
+    <source src="Videos/IMG_8707.mp4" type="video/mp4">
   </video>
   <div class="video-grid">
-  <video class="love-video" controls>
-    <source src="Videos/Wanna.mp4">
+  <video class="love-video" controls playsinline preload="metadata">
+    <source src="Videos/Wanna.mp4" type="video/mp4">
   </video>
   
 </div>
@@ -494,5 +558,6 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 </body>
 </html>
+
 
 
