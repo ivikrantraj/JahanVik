@@ -365,6 +365,13 @@ footer{
   opacity: 1;
   transform: translateY(0) scale(1);
 }
+/* 📱 FIX: SHOW MEMORIES ON MOBILE */
+@media (max-width: 768px){
+  .fade-in{
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
 
 
 
@@ -616,6 +623,7 @@ document.querySelectorAll('.fade-in').forEach(el => {
 
 </body>
 </html>
+
 
 
 
