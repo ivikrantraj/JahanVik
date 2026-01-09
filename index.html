@@ -329,6 +329,28 @@ footer{
     overflow-x: hidden;
   }
 }
+/* 💖 Scroll Down Message */
+.scroll-hint{
+  margin-top: 28px;
+  font-family: 'Pacifico', cursive;
+  font-size: 26px;
+  color: #b83b5e;
+  opacity: 0;
+  animation: bounceGlow 1.8s infinite;
+  transition: opacity 0.6s ease;
+  text-shadow:
+    0 0 12px rgba(255,105,180,0.6),
+    0 0 22px rgba(255,182,193,0.5);
+}
+
+.scroll-hint.show{
+  opacity: 1;
+}
+
+@keyframes bounceGlow{
+  0%,100%{transform: translateY(0)}
+  50%{transform: translateY(10px)}
+}
 
 
 </style>
@@ -361,6 +383,10 @@ footer{
 
     <p class="blow-text">Jahanvi, please blow the candle 💨</p>
     <div id="birthdayText" class="typewriter"></div>
+    <div id="scrollHint" class="scroll-hint">
+  Scroll down Jahanvi 💕👇
+</div>
+
   </div>
 </section>
 
@@ -491,12 +517,17 @@ function playMusic(){
 
 function blowCandle(){
   if(candleBlown) return;
-  candleBlown=true;
+  candleBlown = true;
 
   flameGlow.classList.add('off');
   typeWriterEffect();
   releaseBalloons();
   releaseHearts();
+
+  // 💕 Show scroll message
+  setTimeout(() => {
+    document.getElementById("scrollHint").classList.add("show");
+  }, 1200);
 }
 
 /* Typewriter */
@@ -558,6 +589,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 </body>
 </html>
+
 
 
 
