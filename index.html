@@ -351,6 +351,18 @@ footer{
   0%,100%{transform: translateY(0)}
   50%{transform: translateY(10px)}
 }
+/* ✨ Fade-in on scroll */
+.fade-in{
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.show{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
 
 
 </style>
@@ -391,7 +403,7 @@ footer{
 </section>
 
     <!-- ABOUT HER / BIRTHDAY MESSAGE -->
-<section class="about-her">
+<section class="about-her fade-in">
   <h2>For My Jahanvi My proteinn 🌸</h2>
 
   <p>
@@ -442,7 +454,7 @@ footer{
 <!-- MEMORIES -->
 <section style="background:#fefae0;color:#6a2c70;">
 <h2>Our Beautiful Memories 💞</h2>
-<div class="memories">
+<div class="memories fade-in">
     <!-- Us. Always. Forever. ♾️ -->
   <div class="memory"><img src="memories/memory1.jpeg"><p>Baby tumne 1st Time mere liye kuch banaya tha 💖</p></div>
   <div class="memory"><img src="memories/memory2.jpeg"><p>Ye 2nd Time mere liye banaya tha 🫶</p></div>
@@ -463,7 +475,7 @@ footer{
     </video>
     <p style=>Moments I want to relive with you 💞</p>
   </div> -->
-  <div class="memory video-memory">
+  <div class="memory video-memory fade-in">
   <video class="memory-video love-video" controls playsinline preload="metadata">
     <source src="Videos/Memory4.mp4" type="video/mp4">
   </video>
@@ -471,7 +483,7 @@ footer{
 </div>
 
 
-  <div class="memory" class="video-grid1" >
+  <div class="memory fade-in" class="video-grid1" >
     <video class="love-video" controls playsinline preload="metadata">
       <source src="Videos/Memor5.mp4" type="video/mp4">
     </video>
@@ -482,14 +494,14 @@ footer{
 </section>
 
 <!-- WANNA RECREATE -->
-<section class="recreate-section">
+<section class="recreate-section fade-in">
 <h2>WANNA RECREATE WITH YOU 💞</h2>
 <p>🫶🏻❤️</p>
-<div class="video-grid">
+<div class="video-grid fade-in">
   <video class="love-video" controls playsinline preload="metadata">
     <source src="Videos/IMG_8707.mp4" type="video/mp4">
   </video>
-  <div class="video-grid">
+  <div class="video-grid fade-in">
   <video class="love-video" controls playsinline preload="metadata">
     <source src="Videos/Wanna.mp4" type="video/mp4">
   </video>
@@ -497,7 +509,7 @@ footer{
 </div>
 </section>
 
-<footer>
+<footer class="fade-in">
 <h2>A Special Message for You 💌</h2>
 <p>Haan Tumse hi keh raha hu 🫵🏻 Tum jahanvi sirf Vikrant ki ho 🥺</p><p>Happy Birthday Jahanvi ❤️ You are my Baby, my Sweetheart, my Rasmalai.</p>
 </footer>
@@ -585,11 +597,22 @@ document.addEventListener('DOMContentLoaded',()=>{
   flameGlow.addEventListener('click',blowCandle);
   flameGlow.addEventListener('touchstart',blowCandle);
 });
+/* 👀 Fade-in on scroll */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+    }
+  });
+},{ threshold: 0.15 });
+
+document.querySelectorAll('.fade-in').forEach(el => {
+  observer.observe(el);
+});
 </script>
 
 </body>
 </html>
-
 
 
 
