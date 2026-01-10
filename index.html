@@ -90,6 +90,11 @@ h1,h2{font-family:'Pacifico',cursive;font-weight:400}
   margin-left:6px;
   animation:blink 1s infinite;
 }
+.typewriter.done::after{
+  content: "";
+  animation: none;
+}
+
 
 @keyframes blink{
   0%,50%{opacity:1}
@@ -98,13 +103,55 @@ h1,h2{font-family:'Pacifico',cursive;font-weight:400}
 
 
 /* Floating emojis */
-.floating,.floating-heart{
+/* .floating,.floating-heart{
   position:absolute;bottom:-100px;
   animation:floatUp linear infinite;
 }
 @keyframes floatUp{to{transform:translateY(-120vh)}}
 .floating{font-size:30px}
-.floating-heart{font-size:26px}
+.floating-heart{font-size:26px} */
+.floating,
+.floating-heart{
+  position: absolute;
+  bottom: -60px;
+  opacity: 1 !important;
+  animation: floatToTop linear forwards;
+  pointer-events: none;
+
+  /* 🔒 STOP EMOJI FADING */
+  filter: saturate(1) brightness(1);
+  will-change: transform;
+}
+
+/* 🎈 Balloons */
+.floating{
+  font-size: 30px;
+}
+.slow-float{
+  animation-timing-function: linear;
+}
+
+
+/* ❤️ Hearts */
+.floating-heart{
+  font-size: 26px;
+}
+
+/* 🚀 PURE MOVEMENT — NO FADE */
+@keyframes floatToTop{
+  from{
+    bottom: -60px;
+    transform: translate3d(0,0,0);
+  }
+  to{
+    bottom: 110%;
+    transform: translate3d(0,0,0);
+  }
+}
+*{
+  -webkit-font-smoothing: antialiased;
+}
+
 
 /* Memories section */
 .memories{
@@ -372,6 +419,58 @@ footer{
     transform: none !important;
   }
 }
+.spark{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:gold;
+  border-radius:50%;
+  animation:sparkFly 1s forwards;
+}
+
+@keyframes sparkFly{
+  to{
+    transform:translateY(-80px) scale(0);
+    opacity:0;
+  }
+}
+.about-her,
+#memoriesSection{
+  position: relative;
+  overflow: hidden;
+}
+@keyframes floatToTop{
+  from{
+    bottom: -60px;
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to{
+    bottom: 110%;
+    transform: translateX(40px);
+    opacity: 0;
+  }
+}
+.footer-heart{
+  position: absolute;
+  bottom: -40px;
+  font-size: 22px;
+  pointer-events: none;
+  animation: footerHeartFloat linear forwards;
+  opacity: 0.8;
+}
+
+@keyframes footerHeartFloat{
+  from{
+    bottom: -40px;
+    transform: translateX(0);
+  }
+  to{
+    bottom: 110%;
+    transform: translateX(20px);
+  }
+}
+
 
 
 
@@ -413,7 +512,7 @@ footer{
 </section>
 
     <!-- ABOUT HER / BIRTHDAY MESSAGE -->
-<section class="about-her fade-in">
+<section class="about-her fade-in" id="aboutHer">
   <h2>For My Jahanvi My proteinn 🤤🥵🌸</h2>
 
   <p>
@@ -461,7 +560,7 @@ footer{
 
 
 <!-- MEMORIES -->
-<section style="background:#fefae0;color:#6a2c70;">
+<section style="background:#fefae0;color:#6a2c70;" id="memoriesSection">
 <h2>Our Beautiful Memories 💞</h2>
 <div class="memories fade-in">
     <!-- Us. Always. Forever. ♾️ -->
@@ -531,9 +630,11 @@ function turnOnLights(){
 }
 
 function playMusic(){
-  song.play();
+  song.volume = 0.6;
+  song.play().catch(()=>{});
   document.querySelector('.floating-music-btn').style.display='none';
 }
+
 
 function blowCandle(){
   if(candleBlown) return;
@@ -544,11 +645,23 @@ function blowCandle(){
   releaseBalloons();
   releaseHearts();
 
+  /* ✨ SPARK EFFECT (ADD THIS PART) */
+  for(let i=0;i<20;i++){
+    const s = document.createElement('div');
+    s.className = 'spark';
+    s.style.left = '50%';
+    s.style.top = '30px';
+    s.style.transform = `translateX(${Math.random()*80 - 40}px)`;
+    celebration.appendChild(s);
+    setTimeout(()=>s.remove(),1000);
+  }
+
   // 💕 Show scroll message
   setTimeout(() => {
     document.getElementById("scrollHint").classList.add("show");
   }, 1200);
 }
+
 
 /* Typewriter */
 function typeWriterEffect(){
@@ -565,40 +678,85 @@ function typeWriterEffect(){
       el.innerHTML += text.charAt(index);
       index++;
 
-      // Faster for letters, tiny pause for emojis
       let speed = text.charAt(index-1).match(/[❤️🎂]/) ? 180 : 55;
       setTimeout(typeChar, speed);
+    } else {
+      // ✅ REMOVE BLINKING CURSOR AFTER FINISH
+      el.classList.add("done");
     }
   }
 
   typeChar();
 }
 
+
 /* Balloons */
 function releaseBalloons(){
-  for(let i=0;i<15;i++){
-    const b=document.createElement('div');
-    b.className='floating';
-    b.textContent='🎈';
-    b.style.left=Math.random()*100+'vw';
-    b.style.animationDuration=6+Math.random()*6+'s';
+  balloonInterval = setInterval(() => {
+    const b = document.createElement('div');
+    b.className = 'floating';
+    b.textContent = '🎈';
+    b.style.left = Math.random()*100 + 'vw';
+    b.style.animationDuration = 6 + Math.random()*6 + 's';
     celebration.appendChild(b);
-    setTimeout(()=>b.remove(),12000);
-  }
+
+    setTimeout(() => b.remove(), 12000);
+  }, 800); // every 0.9s
 }
+
 
 /* Hearts */
 function releaseHearts(){
-  for(let i=0;i<15;i++){
-    const h=document.createElement('div');
-    h.className='floating-heart';
-    h.textContent='❤️';
-    h.style.left=Math.random()*100+'vw';
-    h.style.animationDuration=5+Math.random()*5+'s';
+  heartInterval = setInterval(() => {
+    const h = document.createElement('div');
+    h.className = 'floating-heart';
+    h.textContent = '❤️';
+    h.style.left = Math.random()*100 + 'vw';
+    h.style.animationDuration = 5 + Math.random()*5 + 's';
     celebration.appendChild(h);
-    setTimeout(()=>h.remove(),10000);
-  }
+
+    setTimeout(() => h.remove(), 10000);
+  }, 600); // every 0.7s
 }
+function startFloatingInSection(section){
+
+  // 🌸 Different emojis for different sections
+  const memoryEmojis = ['🫶🏻','💖'];
+  const aboutEmojis  = ['🌸','🤤','✨','💞'];
+
+  const emojis = section.id === 'memoriesSection'
+    ? memoryEmojis
+    : aboutEmojis;
+
+  // 🎈 / emoji 1
+  setInterval(() => {
+    const e = document.createElement('div');
+    e.className = 'floating slow-float';
+    e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    e.style.left = Math.random()*100 + '%';
+    e.style.fontSize = 22 + Math.random()*10 + 'px';
+    e.style.animationDuration = 10 + Math.random()*6 + 's';
+    section.appendChild(e);
+
+    setTimeout(()=>e.remove(),18000);
+  }, 1100);
+
+  // ❤️ / emoji 2
+  setInterval(() => {
+    const e = document.createElement('div');
+    e.className = 'floating-heart slow-float';
+    e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    e.style.left = Math.random()*100 + '%';
+    e.style.fontSize = 20 + Math.random()*10 + 'px';
+    e.style.animationDuration = 9 + Math.random()*6 + 's';
+    section.appendChild(e);
+
+    setTimeout(()=>e.remove(),16000);
+  }, 900);
+}
+
+
+
 
 document.addEventListener('DOMContentLoaded',()=>{
   flameGlow.addEventListener('mouseenter',blowCandle);
@@ -617,12 +775,46 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll('.fade-in').forEach(el => {
   observer.observe(el);
 });
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting && !entry.target.dataset.started){
+      entry.target.dataset.started = "true";
+      startFloatingInSection(entry.target);
+    }
+  });
+},{ threshold: 0.4 });
+
+sectionObserver.observe(document.getElementById("aboutHer"));
+sectionObserver.observe(document.getElementById("memoriesSection"));
+const footerObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting && !entry.target.dataset.hearts){
+      entry.target.dataset.hearts = "true";
+      startFooterHearts();
+    }
+  });
+},{ threshold: 0.3 });
+
+footerObserver.observe(document.querySelector("footer"));
+
+function startFooterHearts(){
+  setInterval(() => {
+    const h = document.createElement('div');
+    h.className = 'footer-heart';
+    h.textContent = '❤️';
+    h.style.left = Math.random() * 100 + '%';
+    h.style.animationDuration = 10 + Math.random() * 6 + 's';
+    document.querySelector('footer').appendChild(h);
+
+    setTimeout(() => h.remove(), 16000);
+  }, 1200);
+}
+
+
 </script>
 
 </body>
 </html>
-
-
 
 
 
