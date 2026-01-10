@@ -147,7 +147,13 @@ h1,h2{font-family:'Pacifico',cursive;font-weight:400}
 /* ❤️ Hearts */
 .floating-heart{
   position: absolute;
-  font-size: 26px;
+  bottom: 20px;   /* desktop position */
+  right: 40px;
+  font-size: 60px;
+  z-index: 5;
+  animation: pulse 2s infinite;
+  /* position: absolute; */
+  /* font-size: 26px; */
 }
 
 /* 🚀 PURE MOVEMENT — NO FADE */
@@ -521,6 +527,20 @@ body {
     bottom: 160px;
     right: 50%;
     transform: translateX(40px) rotate(-10deg);
+  }
+}
+@media (max-width: 768px) {
+  .floating-heart {
+    bottom: 5px;     /* move heart lower */
+    right: 20px;     /* move heart slightly right */
+    font-size: 55px; /* optional: slightly smaller for mobile */
+  }
+}
+@media (max-width: 480px) {
+  .floating-heart {
+    bottom: -5px;
+    right: 15px;
+    font-size: 50px;
   }
 }
 
@@ -929,6 +949,7 @@ heartObserver.observe(document.querySelector(".recreate-section"));
 
 </body>
 </html>
+
 
 
 
