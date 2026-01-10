@@ -477,7 +477,7 @@ footer{
 </style>
 </head>
 
-<body>
+lowcandle<body>
 <div class="hearts-bg"></div>
 
 <!-- LIGHTS -->
@@ -650,9 +650,9 @@ function blowCandle(){
     const s = document.createElement('div');
     s.className = 'spark';
     s.style.left = '50%';
-    s.style.top = '30px';
-    s.style.transform = `translateX(${Math.random()*80 - 40}px)`;
-    celebration.appendChild(s);
+    s.style.top = '20px';
+    s.style.transform = `translateX(${Math.random()*40 - 20}px)`;
+    document.querySelector('.cake-center').appendChild(s);b
     setTimeout(()=>s.remove(),1000);
   }
 
