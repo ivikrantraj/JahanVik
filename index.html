@@ -515,13 +515,28 @@ body {
   transform: rotate(-12deg);
 }
 
-@media (max-width: 768px){
+/* @media (max-width: 768px){
   #miniHeart{
     width: 160px;
     height: 160px;
     bottom: 160px;
     right: 50%;
     transform: translateX(40px) rotate(-10deg);
+  }
+} */
+@media (max-width: 768px){
+  #miniHeart{
+    width: 160px;
+    height: 160px;
+
+    /* ⬇ move heart LOWER (below video) */
+    bottom: 80px;
+
+    /* ➡ move heart slightly RIGHT */
+    right: 20px;
+
+    /* ❌ remove centering trick */
+    transform: rotate(-10deg);
   }
 }
 
@@ -931,6 +946,7 @@ heartObserver.observe(document.querySelector(".recreate-section"));
 
 </body>
 </html>
+
 
 
 
