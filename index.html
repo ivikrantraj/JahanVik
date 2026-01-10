@@ -151,17 +151,16 @@ h1,h2{font-family:'Pacifico',cursive;font-weight:400}
 }
 
 /* 🚀 PURE MOVEMENT — NO FADE */
-@keyframes floatToTopMobile{
+@keyframes floatToTop{
   from{
-    transform: translateY(60px);
-    opacity: 1;
+    bottom: -60px;
+    transform: translate3d(0,0,0);
   }
   to{
-    transform: translateY(-120vh);
-    opacity: 1;
+    bottom: 110%;
+    transform: translate3d(0,0,0);
   }
 }
-
 *{
   -webkit-font-smoothing: antialiased;
 }
@@ -501,23 +500,6 @@ html, body {
 body {
   background: linear-gradient(to bottom, #ffe4cf, #ffd1dc);
 }
-@media (max-width: 768px){
-
-  .floating,
-  .floating-heart{
-    bottom: auto !important;
-    top: 100%;
-    animation-name: floatToTopMobile !important;
-  }
-
-}
-  /* 📱 Smooth emoji motion on mobile */
-@media (max-width: 768px){
-  .slow-float{
-    animation-timing-function: ease-in-out !important;
-  }
-}
-
 
 
 
@@ -782,8 +764,7 @@ function startFloatingInSection(section){
     const e = document.createElement('div');
     e.className = 'floating slow-float';
     e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    e.style.top = "100%";
-    e.style.left = Math.random()*100 + "%";
+    e.style.left = Math.random()*100 + '%';
     e.style.fontSize = 22 + Math.random()*10 + 'px';
     e.style.animationDuration = 10 + Math.random()*6 + 's';
     section.appendChild(e);
@@ -796,8 +777,7 @@ function startFloatingInSection(section){
     const e = document.createElement('div');
     e.className = 'floating-heart slow-float';
     e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    e.style.top = "100%";
-    e.style.left = Math.random()*100 + "%";
+    e.style.left = Math.random()*100 + '%';
     e.style.fontSize = 20 + Math.random()*10 + 'px';
     e.style.animationDuration = 9 + Math.random()*6 + 's';
     section.appendChild(e);
