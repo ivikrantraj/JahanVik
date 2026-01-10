@@ -8,7 +8,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background: linear-gradient(to bottom, #ffe4cf, #ffd1dc);
+}
+
 body{font-family:'Poppins',sans-serif;background:#0b0b0b;overflow-x:hidden}
 section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;position:relative;z-index:1}
 h1,h2{font-family:'Pacifico',cursive;font-weight:400}
@@ -134,6 +146,7 @@ h1,h2{font-family:'Pacifico',cursive;font-weight:400}
 
 /* ❤️ Hearts */
 .floating-heart{
+  position: absolute;
   font-size: 26px;
 }
 
@@ -243,8 +256,11 @@ footer{
   background:linear-gradient(135deg,#6a2c70,#b83b5e);
   color:#fff;
   padding:80px 20px;
-  text-align:center
+  text-align:center;
+  position: relative;
+  overflow: hidden;   /* 🔥 THIS FIXES BLACK STRIP */
 }
+
 /* 🎥 Video + text alignment fix */
 .video-memory,
 .memory{
@@ -453,22 +469,36 @@ footer{
 }
 .footer-heart{
   position: absolute;
-  bottom: -40px;
+  bottom: 0;
   font-size: 22px;
   pointer-events: none;
   animation: footerHeartFloat linear forwards;
   opacity: 0.8;
 }
 
+
 @keyframes footerHeartFloat{
   from{
-    bottom: -40px;
+    bottom: 0;
     transform: translateX(0);
   }
   to{
-    bottom: 110%;
+    bottom: 100%;
     transform: translateX(20px);
   }
+}
+
+.container,
+.main {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+html, body {
+  overflow-y: auto;
+}
+
+body {
+  background: linear-gradient(to bottom, #ffe4cf, #ffd1dc);
 }
 
 
@@ -477,7 +507,7 @@ footer{
 </style>
 </head>
 
-lowcandle<body>
+<body style="margin:0; padding:0;">
 <div class="hearts-bg"></div>
 
 <!-- LIGHTS -->
@@ -492,7 +522,8 @@ lowcandle<body>
   <p>Let’s make this moment magical 🌞🫶🏻</p>
 
   <button class="btn floating-music-btn" onclick="playMusic()">PLAY MUSIC 🎶</button>
-  <audio id="song" src="JahanviSonggg.mp3"></audio>
+  <audio id="song" src="JahanviSonggg.mp3" loop></audio>
+
 
   <div class="cake-wrap">
     <div class="cake-name-top">Jahanvi ❤️</div>
@@ -651,7 +682,7 @@ function blowCandle(){
     s.className = 'spark';
     s.style.left = '50%';
     s.style.top = '20px';
-    s.style.transform = `translateX(${Math.random()*40 - 20}px)`;
+    s.style.transform = `translateX(${Math.random()*40 - 0}px)`;
     document.querySelector('.cake-center').appendChild(s);b
     setTimeout(()=>s.remove(),1000);
   }
